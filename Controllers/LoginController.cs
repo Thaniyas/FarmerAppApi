@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace ThaniyasFarmerAppAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class LoginController : Controller
     {
         private IAccountsServices accountsServices;

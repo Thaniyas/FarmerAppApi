@@ -18,6 +18,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ActionFillter]
     public class SaleController : ControllerBase
     {
         private readonly BaseDbContext _context;
@@ -28,23 +29,22 @@ namespace ThaniyasFarmerAppAPI.Controllers
         }
 
         [HttpPost("add-Sale")]
-        public async Task<ActionResult<Sale>> AddSale(SalesViewModel input)
+        public async Task<ActionResult<Sale>> AddSale([FromBody]SalesViewModel input)
         {
             try
             {
                 Sale sale = null;
                 if (input != null)
                 {
-                    sale = input.Adapt<Sale>();
-                    //Getting Land detail
-                    var landDetail = _context.LandDetails.Where(s => s.ID == input.LandDetailsId).FirstOrDefault();
-                    if (landDetail == null) return new JsonResult(new { ErrorMessage = "The given land details id not found." });
-                    var PartLandDetails = _context.PartitionLandDetails.Where(p => p.ID == input.PartitionLandDetailsId).FirstOrDefault();
+                    sale = input.Adapt<Sale>();                    
+                    var PartLandDetails = _context.PartitionLandDetails.Where(p => p.ID == input.PartitionLandDetailId).FirstOrDefault();
                     if (PartLandDetails == null) return new JsonResult(new { ErrorMessage = "The given land details id not found." });
 
-                    //Setting the land detail value to the Partition Land detail object
-                    sale.LandDetailsId = landDetail;
-                    sale.PartitionLandDetailId = PartLandDetails;
+                    //Setting the land detail value to the Partition Land detail object                    
+                    sale.PartitionLandDetail = PartLandDetails;
+                    var user = _context.Users.Where(s => s.ID == input.UserId).FirstOrDefault();
+                    if (user == null) return new JsonResult(new { ErrorMessage = "The given user id not found." });
+                    sale.User = user;
 
                     //Deciding whether the action is Add or Update
                     if (input.ID <= 0) //Add
@@ -57,7 +57,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                     }
                 }
                 await _context.SaveChangesAsync();
-                var result = GetSale(sale.ID);
+                //var result = GetSale(sale.ID);
                 return new JsonResult(sale);
             }
             catch (Exception _ex)
@@ -67,9 +67,11 @@ namespace ThaniyasFarmerAppAPI.Controllers
         }
 
         [HttpGet("sale-list")]
-        public async Task<ActionResult<IEnumerable<Sale>>> GetSaleActivity()
+        public async Task<ActionResult<IEnumerable<Sale>>> GetSaleActivity(int userId)
         {
-            return await _context.Sales.ToListAsync();
+            var list= await _context.Sales.Where(d => d.Deleted == false && d.UserId == userId)
+                    .Include(p => p.PartitionLandDetail).ToListAsync();
+            return list.Where(x => x.UserId == userId).ToList();
         }
 
         [HttpGet("get-Sale/{id}")]
@@ -85,14 +87,12 @@ namespace ThaniyasFarmerAppAPI.Controllers
                 salesEditViewModel = new SalesEditViewModel();
                 salesEditViewModel.BuyerMobileNumber = sale.BuyerMobileNumber;
                 salesEditViewModel.BuyerName = sale.BuyerName;
-                salesEditViewModel.SaleDate = sale.SaleDate;
+                //salesEditViewModel.SaleDate = sale.SaleDate;
                 salesEditViewModel.ID = sale.ID;
                 salesEditViewModel.Price = sale.Price;
                 salesEditViewModel.Quantity = sale.Quantity;
                 salesEditViewModel.LandDetailName = landDetails;
-                salesEditViewModel.selectedLandDetailId = sale.LandDetailsId.ID;
                 salesEditViewModel.PartLandDetailName = partLandDetails;
-                salesEditViewModel.selectedPartLandDetailId = sale.PartitionLandDetailId.ID;
             }
             return salesEditViewModel;
         }

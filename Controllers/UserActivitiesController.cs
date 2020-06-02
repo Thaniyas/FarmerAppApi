@@ -96,7 +96,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
         }
 
         [HttpPost("add-user-activity")]
-        public async Task<ActionResult<UserActivity>> AddUserActivity(UserActivity userActivity)
+        public async Task<ActionResult<UserActivity>> AddUserActivity([FromBody]UserActivity userActivity)
         {
             _context.UserActivity.Add(userActivity);
             await _context.SaveChangesAsync();

@@ -24,15 +24,22 @@ namespace ThaniyasFarmerAppAPI.Controllers
         }
 
         [HttpGet("get-LandDetails")]
-        public async Task<ActionResult<IEnumerable<LandDetail>>> GetLandDetails()
-        
+        public async Task<ActionResult<IEnumerable<LandDetail>>> GetLandDetails(int userId)        
         {
             try
             {
-                var result = await _context.LandDetails.Where(d => d.Deleted == false)
+                var result = await _context.LandDetails.Where(d => d.Deleted == false && d.UserId == userId)
                     .Include(p => p.PartitionLandDetails)
-                    .Include(s=> s.State).ToListAsync();
-                return result;
+                    .Include(s=> s.State)                    
+                    .ToListAsync();
+
+                var list = new List<LandDetail>();
+                foreach(var item in result)
+                {
+                    item.PartitionLandDetails = item.PartitionLandDetails.Where(x => x.Deleted == false).ToList();
+                    list.Add(item);
+                }
+                return list;
             }
             catch(Exception ex)
             {
@@ -95,12 +102,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
         [HttpPost("add-LandDetail")]
         public async Task<ActionResult<LandDetail>> AddLandDetail([FromBody]LandDetailViewModel input)
         {
-            //var landDetails = input.Adapt<LandDetail>();
-            //_context.LandDetails.Add(landDetails);
-            //await _context.SaveChangesAsync();
-            //return new JsonResult(landDetails);
-            // return CreatedAtAction("GetLandDetail", new { id = LandDetail.ID }, LandDetail);
-
+            
             try
             {
                 LandDetail landDetails = null;
@@ -109,9 +111,12 @@ namespace ThaniyasFarmerAppAPI.Controllers
                     landDetails = input.Adapt<LandDetail>();
                     var stateList = _context.StateLists.Where(s => s.ID == input.StateId).FirstOrDefault();
                     if (stateList == null) return new JsonResult(new { ErrorMessage = "The given state id not found." });
+                    var user = _context.Users.Where(s => s.ID == input.UserId).FirstOrDefault();
+                    if (user == null) return new JsonResult(new { ErrorMessage = "The given user id not found." });
+                    landDetails.User = user;
 
                     //Setting the state List value to the Land detail object
-                    landDetails.State = stateList;
+                    landDetails.State = stateList;                    
                     if (input.ID <= 0) 
                     {
                         _context.LandDetails.Add(landDetails);
@@ -122,7 +127,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                     }
                 }
                 await _context.SaveChangesAsync();
-                var result = GetLandDetail(landDetails.ID);
+                //var result = GetLandDetail(landDetails.ID);
                 return new JsonResult(landDetails);
             }
             catch (Exception _ex)

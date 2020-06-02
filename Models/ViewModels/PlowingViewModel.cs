@@ -8,8 +8,7 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
 {
     public class PlowingViewModel
     {
-        public int PartitionLandDetailsId { get; set; }
-        public int LandDetailsId { get; set; }
+        public int PartitionLandDetailId { get; set; }
         public int ID { get; set; }
         public DateTime PlowingDate { get; set; }
         [MaxLength(50)]
@@ -17,5 +16,6 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
         [MaxLength(50)]
         public string PlowingExp { get; set; }
         public bool Deleted { get; set; }
+        public int UserId { get; set; }
     }
 }

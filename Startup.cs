@@ -15,6 +15,7 @@ using ThaniyasFarmerAppAPI.Services;
 using ThaniyasFarmerAppAPI.Services.Interfaces;
 using ThaniyasFarmerAppAPI.Filters;
 using ThaniyasFarmerAppAPI.Helpers;
+using System.Linq;
 
 namespace ThaniyasFarmerAppAPI
 {
@@ -54,6 +55,7 @@ namespace ThaniyasFarmerAppAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 //c.AddSecurityDefinition("api-key-value",
                 //new ApiKeyScheme
                 //{
@@ -97,7 +99,7 @@ namespace ThaniyasFarmerAppAPI
                    name: "default",
                    template: "{controller}/{action=Index}/{id?}");
             });
-            //app.UseAuthentication();            
+            app.UseAuthentication();            
             app.UseMvc();
 
             //app.UseCors();

@@ -16,9 +16,14 @@ namespace ThaniyasFarmerAppAPI.Models
         [Required]
         [MaxLength(75)]
         public string AreaSize { get; set; }
-        
-        [ForeignKey("LandDetailId")]
-        public virtual LandDetail LandDetail { get; set; }
+
+        public LandDetail LandDetail { get; set; }
+        [ForeignKey("LandDetailIDFK")]
+        public int LandDetailId { get; set; }
+
+        public User User { get; set; }
+        [ForeignKey("UserIDFK")]
+        public int UserId { get; set; }                     
         
         public new bool Deleted { get; set; }
         public PartitionLandDetail()

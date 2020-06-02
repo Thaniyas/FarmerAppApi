@@ -15,7 +15,7 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
         public string Quantity { get; set; }       
         public string SeedName { get; set; }       
         public string SeedCost { get; set; }      
-        public string NOofLabours { get; set; }
+        public string NoOfLabours { get; set; }
         public int LabourCost { get; set; }
     }
 }

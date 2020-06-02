@@ -8,10 +8,10 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
 {
     public class SalesViewModel
     {
-        public int PartitionLandDetailsId { get; set; }
-        public int LandDetailsId { get; set; }
+        public int PartitionLandDetailId { get; set; }
+        public int UserId { get; set; }
         public int ID { get; set; }
-        public string SaleDate { get; set; }
+        public DateTime SaleDate { get; set; }
         [MaxLength(50)]
         public string Quantity { get; set; }
         [MaxLength(50)]

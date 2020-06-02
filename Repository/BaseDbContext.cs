@@ -28,9 +28,8 @@ namespace ThaniyasFarmerAppAPI.Repository
         public DbSet<Roles> Roles { get; set; }
         public DbSet<WebPages> WebPages { get; set; }
         public DbSet<RolePageAccess> RolePageAccesses { get; set; }
-        public DbSet<StateList> StateLists { get; set; }
-        public DbSet<Registration> Registrations { get; set; }
-        public DbSet<Login> Logins { get; set; }
+        public DbSet<StateList> StateLists { get; set; }        
+        public DbSet<GoogleRegister> GoogleRegisters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,8 +39,12 @@ namespace ThaniyasFarmerAppAPI.Repository
 
             //modelBuilder.Entity<PartitionLandDetail>()
             //    .HasOne(e => e.LandDetail)
-            //    .WithMany(c => c.PartitionLandDetails);
+            //    .WithMany(c => c.PartitionLandDetails);         
 
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
@@ -51,6 +54,54 @@ namespace ThaniyasFarmerAppAPI.Repository
                     Password = Helpers.StringCipher.Encrypt("Password*123"),
                     DateAdded = DateTime.UtcNow,
                     DateModified=DateTime.UtcNow,
+                    //RoleID = 1,
+                   // AcceptedTermsAndConditions = true,
+                    IsFirstTimeLogin = true
+                },
+                new User
+                {
+                    ID = 2,
+                    UserName = "seenu",
+                    Email = "seenu@inisys.in",
+                    Password = Helpers.StringCipher.Encrypt("Password*123"),
+                    DateAdded = DateTime.UtcNow,
+                    DateModified = DateTime.UtcNow,
+                    RoleID = 1,
+                    AcceptedTermsAndConditions = true,
+                    IsFirstTimeLogin = true
+                }
+                , new User
+                {
+                    ID = 3,
+                    UserName = "senthil",
+                    Email = "senthil@gmail.com",
+                    Password = Helpers.StringCipher.Encrypt("Password*123"),
+                    DateAdded = DateTime.UtcNow,
+                    DateModified = DateTime.UtcNow,
+                    RoleID = 1,
+                    AcceptedTermsAndConditions = true,
+                    IsFirstTimeLogin = true
+                }
+                , new User
+                {
+                    ID = 4,
+                    UserName = "seetha",
+                    Email = "seetha@inisys.in",
+                    Password = Helpers.StringCipher.Encrypt("Password*123"),
+                    DateAdded = DateTime.UtcNow,
+                    DateModified = DateTime.UtcNow,
+                    RoleID = 1,
+                    AcceptedTermsAndConditions = true,
+                    IsFirstTimeLogin = true
+                }
+                , new User
+                {
+                    ID = 5,
+                    UserName = "edwin",
+                    Email = "edwin@inisys.in",
+                    Password = Helpers.StringCipher.Encrypt("Password*123"),
+                    DateAdded = DateTime.UtcNow,
+                    DateModified = DateTime.UtcNow,
                     RoleID = 1,
                     AcceptedTermsAndConditions = true,
                     IsFirstTimeLogin = true
@@ -104,6 +155,23 @@ namespace ThaniyasFarmerAppAPI.Repository
                     Text = "Admin",
                     Deleted = false
                 });
+
+            modelBuilder.Entity<StateList>().HasData(
+               new StateList
+               {
+                   ID = 1,
+                   StateName = "Tamilnadu"
+               },
+               new StateList
+               {
+                   ID = 2,
+                   StateName = "Kerala"
+               },
+               new StateList
+               {
+                   ID = 3,
+                   StateName = "Karnataka"
+               });
 
             modelBuilder.Entity<WebPages>().HasData(
                new WebPages

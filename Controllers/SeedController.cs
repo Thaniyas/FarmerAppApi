@@ -18,6 +18,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ActionFillter]
     public class SeedController : ControllerBase
     {
         private readonly BaseDbContext _context;
@@ -28,7 +29,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
         }
 
         [HttpPost("add-Seed")]
-        public async Task<ActionResult<Seeding>> AddSeeding(SeedingViewModel input)
+        public async Task<ActionResult<Seeding>> AddSeeding([FromBody]SeedingViewModel input)
         {
             //_context.Seedings.Add(Seeding);
             //await _context.SaveChangesAsync();
@@ -41,16 +42,12 @@ namespace ThaniyasFarmerAppAPI.Controllers
                 if (input != null)
                 {
                     seeding = input.Adapt<Seeding>();
-                    //Getting Land detail
-                    var landDetail = _context.LandDetails.Where(l => l.ID == input.LandDetailsId).FirstOrDefault();
-                    if (landDetail == null) return new JsonResult(new { ErrorMessage = "The given land details id not found." });
-                    var PartLandDetails = _context.PartitionLandDetails.Where(p => p.ID == input.PartitionLandDetailsId).FirstOrDefault();
+                    var user = _context.Users.Where(s => s.ID == input.UserId).FirstOrDefault();
+                    if (user == null) return new JsonResult(new { ErrorMessage = "The given user id not found." });
+                    seeding.User = user;
+                    var PartLandDetails = _context.PartitionLandDetails.Where(p => p.ID == input.PartitionLandDetailId).FirstOrDefault();
                     if (PartLandDetails == null) return new JsonResult(new { ErrorMessage = "The given land details id not found." });
-
-                    //Setting the land detail value to the Partition Land detail object
-                    seeding.LandDetailsId = landDetail;
-                    seeding.PartitionLandDetailId = PartLandDetails;
-
+                    seeding.PartitionLandDetail = PartLandDetails;
                     //Deciding whether the action is Add or Update
                     if (input.ID <= 0) //Add
                     {
@@ -62,7 +59,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                     }
                 }
                 await _context.SaveChangesAsync();
-                var result = GetSeed(seeding.ID);
+                //var result = GetSeed(seeding.ID);
                 return new JsonResult(seeding);
             }
             catch (Exception _ex)
@@ -73,9 +70,11 @@ namespace ThaniyasFarmerAppAPI.Controllers
         }
 
         [HttpGet("seed-list")]
-        public async Task<ActionResult<IEnumerable<Seeding>>> GetSeedActivity()
+        public async Task<ActionResult<IEnumerable<Seeding>>> GetSeedActivity(int userId)
         {
-            return await _context.Seedings.ToListAsync();
+            var list= await _context.Seedings.Where(d => d.Deleted == false && d.UserId == userId)
+                    .Include(p => p.PartitionLandDetail).ToListAsync();
+            return list.Where(x => x.UserId == userId).ToList();
         }
 
         [HttpGet("get-Seed/{id}")]
@@ -90,14 +89,12 @@ namespace ThaniyasFarmerAppAPI.Controllers
                 seedEditViewModel = new SeedEditViewModel();
                 seedEditViewModel.ID = Seed.ID;
                 seedEditViewModel.LabourCost = Seed.LabourCost;
-                seedEditViewModel.NOofLabours = Seed.NOofLabours;
+                seedEditViewModel.NoOfLabours = Seed.NoOfLabours;
                 seedEditViewModel.Quantity = Seed.Quantity;
                 seedEditViewModel.SeedCost = Seed.SeedCost;
                 seedEditViewModel.SeedName = Seed.SeedName;
                 seedEditViewModel.LandDetailName = landDetails;
-                seedEditViewModel.selectedLandDetailId = Seed.LandDetailsId.ID;
                 seedEditViewModel.PartLandDetailName = partLandDetails;
-                seedEditViewModel.selectedPartLandDetailId = Seed.PartitionLandDetailId.ID;
             }
 
             return seedEditViewModel;

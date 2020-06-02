@@ -13170,11 +13170,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\thaniyasfarmerapp\\ThaniyasFarmerAppAPI\\ThaniyasFarmerAppAPI.csproj",
+      "projectUniqueName": "D:\\Projects\\FarmerAppApi\\ThaniyasFarmerAppAPI.csproj",
       "projectName": "ThaniyasFarmerAppAPI",
-      "projectPath": "D:\\Projects\\thaniyasfarmerapp\\ThaniyasFarmerAppAPI\\ThaniyasFarmerAppAPI.csproj",
+      "projectPath": "D:\\Projects\\FarmerAppApi\\ThaniyasFarmerAppAPI.csproj",
       "packagesPath": "C:\\Users\\VSS Thaniyas\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\thaniyasfarmerapp\\ThaniyasFarmerAppAPI\\obj\\",
+      "outputPath": "D:\\Projects\\FarmerAppApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

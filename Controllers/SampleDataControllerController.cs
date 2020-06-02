@@ -13,7 +13,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
         public JsonResult Get()
         {
             var returnResut= new List<User>();
-            returnResut.Add(new User {ID=1, FirstName="Robin", LastName="Jack", UserName="RobinJack"});
+           // returnResut.Add(new User {ID=1, FirstName="Robin", LastName="Jack", UserName="RobinJack"});
           
             return new JsonResult(returnResut);
         }

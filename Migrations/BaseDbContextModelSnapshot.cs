@@ -49,8 +49,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 1,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 113, DateTimeKind.Utc).AddTicks(9218),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 113, DateTimeKind.Utc).AddTicks(9218),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(4214),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(4214),
                             Deleted = false,
                             Name = "UserID",
                             Type = "SystemEmailSettings",
@@ -59,8 +59,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 2,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 114, DateTimeKind.Utc).AddTicks(2076),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 114, DateTimeKind.Utc).AddTicks(2076),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(6253),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(6253),
                             Deleted = false,
                             Name = "Password",
                             Type = "SystemEmailSettings",
@@ -69,8 +69,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 3,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 114, DateTimeKind.Utc).AddTicks(2790),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 114, DateTimeKind.Utc).AddTicks(2790),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(6956),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(6956),
                             Deleted = false,
                             Name = "SMTPPort",
                             Type = "SystemEmailSettings",
@@ -79,13 +79,52 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 4,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 114, DateTimeKind.Utc).AddTicks(3405),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 114, DateTimeKind.Utc).AddTicks(3406),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(7538),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(7538),
                             Deleted = false,
                             Name = "Host",
                             Type = "SystemEmailSettings",
                             Value = "+fNJD/SKxu6Pyz64X9mIMQ=="
                         });
+                });
+
+            modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.GoogleRegister", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateAdded");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<int>("UserId");
+
+                    b.Property<string>("accessToken");
+
+                    b.Property<string>("email");
+
+                    b.Property<string>("familyName");
+
+                    b.Property<string>("givenName");
+
+                    b.Property<string>("googleid");
+
+                    b.Property<string>("idToken");
+
+                    b.Property<string>("imageUrl");
+
+                    b.Property<string>("name");
+
+                    b.Property<string>("serverAuthCode");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GoogleRegisters");
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.Harvestings", b =>
@@ -97,7 +136,7 @@ namespace ThaniyasFarmerAppAPI.Migrations
                     b.Property<string>("Cost")
                         .HasMaxLength(50);
 
-                    b.Property<string>("Date");
+                    b.Property<DateTime>("Date");
 
                     b.Property<DateTime>("DateAdded");
 
@@ -107,18 +146,18 @@ namespace ThaniyasFarmerAppAPI.Migrations
 
                     b.Property<int>("LabourCost");
 
-                    b.Property<int?>("LandDetailIDFK");
-
-                    b.Property<string>("NOofLabours")
+                    b.Property<string>("NoOfLabours")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("PartitionLandDetailIDFK");
+                    b.Property<int>("PartitionLandDetailId");
+
+                    b.Property<int>("UserId");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("LandDetailIDFK");
+                    b.HasIndex("PartitionLandDetailId");
 
-                    b.HasIndex("PartitionLandDetailIDFK");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Harvestings");
                 });
@@ -147,7 +186,9 @@ namespace ThaniyasFarmerAppAPI.Migrations
                     b.Property<string>("PattaNumber")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("StateListId");
+                    b.Property<int>("StateId");
+
+                    b.Property<int>("UserId");
 
                     b.Property<string>("Village")
                         .IsRequired()
@@ -155,33 +196,11 @@ namespace ThaniyasFarmerAppAPI.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("StateListId");
+                    b.HasIndex("StateId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("LandDetails");
-                });
-
-            modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.Login", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateAdded");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(30);
-
-                    b.Property<string>("UserName")
-                        .IsRequired();
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Logins");
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", b =>
@@ -200,15 +219,19 @@ namespace ThaniyasFarmerAppAPI.Migrations
 
                     b.Property<bool>("Deleted");
 
-                    b.Property<int?>("LandDetailId");
+                    b.Property<int>("LandDetailId");
 
                     b.Property<string>("LandDirection")
                         .IsRequired()
                         .HasMaxLength(75);
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("ID");
 
                     b.HasIndex("LandDetailId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("PartitionLandDetails");
                 });
@@ -232,23 +255,23 @@ namespace ThaniyasFarmerAppAPI.Migrations
                     b.Property<string>("LabourCost")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("LandDetailIDFK");
-
                     b.Property<string>("NameofthePestSide")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("PartitionLandDetailIDFK");
+                    b.Property<int>("PartitionLandDetailId");
 
-                    b.Property<string>("PestControlDate");
+                    b.Property<DateTime>("PestControlDate");
 
                     b.Property<string>("Purpose")
                         .HasMaxLength(50);
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("LandDetailIDFK");
+                    b.HasIndex("PartitionLandDetailId");
 
-                    b.HasIndex("PartitionLandDetailIDFK");
+                    b.HasIndex("UserId");
 
                     b.ToTable("PestControls");
                 });
@@ -266,9 +289,7 @@ namespace ThaniyasFarmerAppAPI.Migrations
                     b.Property<bool>("Deleted")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("LandDetailIDFK");
-
-                    b.Property<int?>("PartitionLandDetailIDFK");
+                    b.Property<int>("PartitionLandDetailId");
 
                     b.Property<DateTime>("PlowingDate");
 
@@ -278,36 +299,15 @@ namespace ThaniyasFarmerAppAPI.Migrations
                     b.Property<string>("TypeofPlowing")
                         .HasMaxLength(50);
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("LandDetailIDFK");
+                    b.HasIndex("PartitionLandDetailId");
 
-                    b.HasIndex("PartitionLandDetailIDFK");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Plowings");
-                });
-
-            modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.Registration", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateAdded");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("MobileNumber");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Registrations");
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.RolePageAccess", b =>
@@ -338,8 +338,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 1,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 114, DateTimeKind.Utc).AddTicks(9782),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 114, DateTimeKind.Utc).AddTicks(9783),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5151),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5151),
                             Deleted = false,
                             PagesID = 1,
                             RolesID = 1
@@ -347,8 +347,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 2,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(519),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(519),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5848),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5849),
                             Deleted = false,
                             PagesID = 2,
                             RolesID = 1
@@ -356,8 +356,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 3,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(526),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(526),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5854),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5854),
                             Deleted = false,
                             PagesID = 3,
                             RolesID = 1
@@ -365,8 +365,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 4,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(526),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(527),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5855),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5855),
                             Deleted = false,
                             PagesID = 4,
                             RolesID = 1
@@ -374,8 +374,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 5,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(527),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(528),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5856),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5856),
                             Deleted = false,
                             PagesID = 5,
                             RolesID = 1
@@ -383,8 +383,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 6,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(528),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(528),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5857),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5857),
                             Deleted = false,
                             PagesID = 6,
                             RolesID = 1
@@ -392,8 +392,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 7,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(529),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(529),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5857),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5858),
                             Deleted = false,
                             PagesID = 7,
                             RolesID = 1
@@ -401,8 +401,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 8,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(530),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(530),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5858),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5858),
                             Deleted = false,
                             PagesID = 8,
                             RolesID = 1
@@ -410,8 +410,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 9,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(530),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(531),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5859),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5859),
                             Deleted = false,
                             PagesID = 9,
                             RolesID = 1
@@ -419,8 +419,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 10,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(531),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(531),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5860),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5860),
                             Deleted = false,
                             PagesID = 10,
                             RolesID = 1
@@ -428,8 +428,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 11,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(532),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(532),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5860),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5861),
                             Deleted = false,
                             PagesID = 1,
                             RolesID = 2
@@ -437,8 +437,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 12,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(533),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(533),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5861),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5861),
                             Deleted = false,
                             PagesID = 2,
                             RolesID = 2
@@ -446,8 +446,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 13,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(569),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(569),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5862),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5862),
                             Deleted = false,
                             PagesID = 3,
                             RolesID = 2
@@ -455,8 +455,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 14,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(570),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(570),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5863),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5863),
                             Deleted = false,
                             PagesID = 4,
                             RolesID = 2
@@ -464,8 +464,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 15,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(571),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(571),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5863),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5864),
                             Deleted = false,
                             PagesID = 5,
                             RolesID = 2
@@ -473,8 +473,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 16,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(571),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(572),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5864),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5864),
                             Deleted = false,
                             PagesID = 6,
                             RolesID = 2
@@ -482,8 +482,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 17,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(572),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(572),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5865),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5865),
                             Deleted = false,
                             PagesID = 7,
                             RolesID = 2
@@ -491,8 +491,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 18,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(573),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(573),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5866),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5866),
                             Deleted = false,
                             PagesID = 8,
                             RolesID = 2
@@ -500,8 +500,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 19,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(574),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(574),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5866),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5867),
                             Deleted = false,
                             PagesID = 9,
                             RolesID = 2
@@ -509,8 +509,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 20,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(574),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 115, DateTimeKind.Utc).AddTicks(575),
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5867),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 30, DateTimeKind.Utc).AddTicks(5867),
                             Deleted = false,
                             PagesID = 10,
                             RolesID = 2
@@ -575,9 +575,7 @@ namespace ThaniyasFarmerAppAPI.Migrations
 
                     b.Property<bool>("Deleted");
 
-                    b.Property<int?>("LandDetailIDFK");
-
-                    b.Property<int?>("PartitionLandDetailIDFK");
+                    b.Property<int>("PartitionLandDetailId");
 
                     b.Property<string>("Price")
                         .HasMaxLength(50);
@@ -585,13 +583,15 @@ namespace ThaniyasFarmerAppAPI.Migrations
                     b.Property<string>("Quantity")
                         .HasMaxLength(50);
 
-                    b.Property<string>("SaleDate");
+                    b.Property<DateTime>("SaleDate");
+
+                    b.Property<int>("UserId");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("LandDetailIDFK");
+                    b.HasIndex("PartitionLandDetailId");
 
-                    b.HasIndex("PartitionLandDetailIDFK");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Sales");
                 });
@@ -602,6 +602,9 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Date")
+                        .HasMaxLength(50);
+
                     b.Property<DateTime>("DateAdded");
 
                     b.Property<DateTime>("DateModified");
@@ -610,27 +613,26 @@ namespace ThaniyasFarmerAppAPI.Migrations
 
                     b.Property<int>("LabourCost");
 
-                    b.Property<int?>("LandDetailIDFK");
-
-                    b.Property<string>("NOofLabours")
+                    b.Property<string>("NoOfLabours")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("PartitionLandDetailIDFK");
+                    b.Property<int>("PartitionLandDetailId");
 
                     b.Property<string>("Quantity")
                         .HasMaxLength(50);
 
-                    b.Property<string>("SeedCost")
-                        .HasMaxLength(50);
+                    b.Property<string>("SeedCost");
 
                     b.Property<string>("SeedName")
                         .HasMaxLength(50);
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("LandDetailIDFK");
+                    b.HasIndex("PartitionLandDetailId");
 
-                    b.HasIndex("PartitionLandDetailIDFK");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Seedings");
                 });
@@ -646,6 +648,23 @@ namespace ThaniyasFarmerAppAPI.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("StateLists");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            StateName = "Tamilnadu"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            StateName = "Kerala"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            StateName = "Karnataka"
+                        });
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.User", b =>
@@ -682,6 +701,8 @@ namespace ThaniyasFarmerAppAPI.Migrations
 
                     b.Property<int>("RoleID");
 
+                    b.Property<string>("Source");
+
                     b.Property<string>("UserName")
                         .IsRequired();
 
@@ -693,15 +714,67 @@ namespace ThaniyasFarmerAppAPI.Migrations
                         new
                         {
                             ID = 1,
-                            AcceptedTermsAndConditions = true,
-                            DateAdded = new DateTime(2020, 3, 14, 3, 39, 48, 113, DateTimeKind.Utc).AddTicks(6463),
-                            DateModified = new DateTime(2020, 3, 14, 3, 39, 48, 113, DateTimeKind.Utc).AddTicks(6476),
+                            AcceptedTermsAndConditions = false,
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 28, DateTimeKind.Utc).AddTicks(8008),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 28, DateTimeKind.Utc).AddTicks(8019),
                             Deleted = false,
                             Email = "winedjos@gmail.com",
                             IsFirstTimeLogin = true,
                             Password = "llFg1YwNHgLVbQGDz1aaEQ==",
-                            RoleID = 1,
+                            RoleID = 0,
                             UserName = "admin"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            AcceptedTermsAndConditions = true,
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 28, DateTimeKind.Utc).AddTicks(9207),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 28, DateTimeKind.Utc).AddTicks(9207),
+                            Deleted = false,
+                            Email = "seenu@inisys.in",
+                            IsFirstTimeLogin = true,
+                            Password = "llFg1YwNHgLVbQGDz1aaEQ==",
+                            RoleID = 1,
+                            UserName = "seenu"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            AcceptedTermsAndConditions = true,
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(818),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(818),
+                            Deleted = false,
+                            Email = "senthil@gmail.com",
+                            IsFirstTimeLogin = true,
+                            Password = "llFg1YwNHgLVbQGDz1aaEQ==",
+                            RoleID = 1,
+                            UserName = "senthil"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            AcceptedTermsAndConditions = true,
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(1439),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(1439),
+                            Deleted = false,
+                            Email = "seetha@inisys.in",
+                            IsFirstTimeLogin = true,
+                            Password = "llFg1YwNHgLVbQGDz1aaEQ==",
+                            RoleID = 1,
+                            UserName = "seetha"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            AcceptedTermsAndConditions = true,
+                            DateAdded = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(2023),
+                            DateModified = new DateTime(2020, 5, 28, 9, 40, 25, 29, DateTimeKind.Utc).AddTicks(2024),
+                            Deleted = false,
+                            Email = "edwin@inisys.in",
+                            IsFirstTimeLogin = true,
+                            Password = "llFg1YwNHgLVbQGDz1aaEQ==",
+                            RoleID = 1,
+                            UserName = "edwin"
                         });
                 });
 
@@ -836,7 +909,7 @@ namespace ThaniyasFarmerAppAPI.Migrations
                     b.Property<string>("Cost")
                         .HasMaxLength(50);
 
-                    b.Property<string>("Date");
+                    b.Property<DateTime>("Date");
 
                     b.Property<DateTime>("DateAdded");
 
@@ -846,67 +919,93 @@ namespace ThaniyasFarmerAppAPI.Migrations
 
                     b.Property<int>("LabourCost");
 
-                    b.Property<int?>("LandDetailIDFK");
-
-                    b.Property<string>("NOofLabours")
+                    b.Property<string>("NoOfLabours")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("PartitionLandDetailIDFK");
+                    b.Property<int>("PartitionLandDetailId");
+
+                    b.Property<int>("UserId");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("LandDetailIDFK");
+                    b.HasIndex("PartitionLandDetailId");
 
-                    b.HasIndex("PartitionLandDetailIDFK");
+                    b.HasIndex("UserId");
 
                     b.ToTable("WeedRemove");
                 });
 
+            modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.GoogleRegister", b =>
+                {
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.Harvestings", b =>
                 {
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.LandDetail", "LandDetailsId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetail")
                         .WithMany()
-                        .HasForeignKey("LandDetailIDFK");
+                        .HasForeignKey("PartitionLandDetailId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetailId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("PartitionLandDetailIDFK");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.LandDetail", b =>
                 {
                     b.HasOne("ThaniyasFarmerAppAPI.Models.StateList", "State")
                         .WithMany()
-                        .HasForeignKey("StateListId");
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", b =>
                 {
                     b.HasOne("ThaniyasFarmerAppAPI.Models.LandDetail", "LandDetail")
                         .WithMany("PartitionLandDetails")
-                        .HasForeignKey("LandDetailId");
+                        .HasForeignKey("LandDetailId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.PestControl", b =>
                 {
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.LandDetail", "LandDetailsId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetail")
                         .WithMany()
-                        .HasForeignKey("LandDetailIDFK");
+                        .HasForeignKey("PartitionLandDetailId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetailId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("PartitionLandDetailIDFK");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.Plowing", b =>
                 {
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.LandDetail", "LandDetailsId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetail")
                         .WithMany()
-                        .HasForeignKey("LandDetailIDFK");
+                        .HasForeignKey("PartitionLandDetailId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetailId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("PartitionLandDetailIDFK");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.RolePageAccess", b =>
@@ -914,34 +1013,38 @@ namespace ThaniyasFarmerAppAPI.Migrations
                     b.HasOne("ThaniyasFarmerAppAPI.Models.WebPages", "Pages")
                         .WithMany()
                         .HasForeignKey("PagesID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ThaniyasFarmerAppAPI.Models.Roles", "Roles")
                         .WithMany()
                         .HasForeignKey("RolesID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.Sale", b =>
                 {
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.LandDetail", "LandDetailsId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetail")
                         .WithMany()
-                        .HasForeignKey("LandDetailIDFK");
+                        .HasForeignKey("PartitionLandDetailId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetailId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("PartitionLandDetailIDFK");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.Seeding", b =>
                 {
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.LandDetail", "LandDetailsId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetail")
                         .WithMany()
-                        .HasForeignKey("LandDetailIDFK");
+                        .HasForeignKey("PartitionLandDetailId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetailId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("PartitionLandDetailIDFK");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.UserActivity", b =>
@@ -949,18 +1052,20 @@ namespace ThaniyasFarmerAppAPI.Migrations
                     b.HasOne("ThaniyasFarmerAppAPI.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ThaniyasFarmerAppAPI.Models.WeedRemove", b =>
                 {
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.LandDetail", "LandDetailsId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetail")
                         .WithMany()
-                        .HasForeignKey("LandDetailIDFK");
+                        .HasForeignKey("PartitionLandDetailId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("ThaniyasFarmerAppAPI.Models.PartitionLandDetail", "PartitionLandDetailId")
+                    b.HasOne("ThaniyasFarmerAppAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("PartitionLandDetailIDFK");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

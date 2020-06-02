@@ -9,12 +9,13 @@ namespace ThaniyasFarmerAppAPI.Models
 {
     public class PestControl : Base
     {
-        [ForeignKey("LandDetailIDFK")]
-        public LandDetail LandDetailsId { get; set; }
-
+        public User User { get; set; }
+        [ForeignKey("UserIDFK")]
+        public int UserId { get; set; }
+        public PartitionLandDetail PartitionLandDetail { get; set; }
         [ForeignKey("PartitionLandDetailIDFK")]
-        public PartitionLandDetail PartitionLandDetailId { get; set; }
-        public string PestControlDate { get; set; }
+        public int PartitionLandDetailId { get; set; }
+        public DateTime PestControlDate { get; set; }
         [MaxLength(50)]
         public string NameofthePestSide { get; set; }
         [MaxLength(50)]

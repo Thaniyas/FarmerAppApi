@@ -80,7 +80,7 @@ namespace ThaniyasFarmerAppAPI.Services
                         var resultData = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(resultString); 
                         if (resultData != null)
                         {
-                            activity = activity+" " + resultData.FirstName + " " + resultData.LastName;
+                           // activity = activity+" " + resultData.FirstName + " " + resultData.LastName;
                         }
                     }
                     if (controller.ToLower().Contains("landdetail"))

@@ -97,82 +97,82 @@ namespace ThaniyasFarmerAppAPI.Controllers
         //    return user;
         //}
 
-        //[HttpPost("change-password")]
-        //public async Task<ActionResult<ChangePasswordResult>> ChangePassword(ChangePasswordInput input)
-        //{
-        //    var returnResult = new ChangePasswordResult { status = new Status(), userDetail = new UserViewModel() };
-        //    var existData = _context.Users.Where(x => x.ID == input.id).FirstOrDefault();            
-        //    if (existData == null)
-        //    {
-        //        returnResult.status = new Status { StatusCode = 301, StatusValue = false, StatusDisplay = "No user found" };
-        //        return returnResult;
-        //    }
-        //    if (existData.Password != Helpers.StringCipher.Encrypt(input.oldPassword))
-        //    {
-        //        returnResult.status = new Status { StatusCode = 301, StatusValue = false, StatusDisplay = "The old password doesn't match." };                 
-        //        return returnResult;
-        //    }
-        //    try
-        //    {
-        //        existData.Password = Helpers.StringCipher.Encrypt(input.newPassword);
-        //        _context.Entry(existData).State = EntityState.Modified;
-        //        await _context.SaveChangesAsync();
-        //        returnResult.status = new Status { StatusCode = 200, StatusValue = true, StatusDisplay = "Successfully" };
-        //    }            
-        //    catch (Exception ex)
-        //    {
-        //        returnResult.status = new Status { StatusCode = 500, StatusValue = false, StatusDisplay = ex.Message };
-        //    }
+        [HttpPost("change-password")]
+        public async Task<ActionResult<ChangePasswordResult>> ChangePassword(ChangePasswordInput input)
+        {
+            var returnResult = new ChangePasswordResult { status = new Status(), userDetail = new UserViewModel() };
+            var existData = _context.Users.Where(x => x.ID == input.id).FirstOrDefault();
+            if (existData == null)
+            {
+                returnResult.status = new Status { StatusCode = 301, StatusValue = false, StatusDisplay = "No user found" };
+                return returnResult;
+            }
+            if (existData.Password != Helpers.StringCipher.Encrypt(input.oldPassword))
+            {
+                returnResult.status = new Status { StatusCode = 301, StatusValue = false, StatusDisplay = "The old password doesn't match." };
+                return returnResult;
+            }
+            try
+            {
+                existData.Password = Helpers.StringCipher.Encrypt(input.newPassword);
+                _context.Entry(existData).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                returnResult.status = new Status { StatusCode = 200, StatusValue = true, StatusDisplay = "Successfully" };
+            }
+            catch (Exception ex)
+            {
+                returnResult.status = new Status { StatusCode = 500, StatusValue = false, StatusDisplay = ex.Message };
+            }
 
-        //    return returnResult;
-        //}
+            return returnResult;
+        }
 
-        //[HttpPost("add-user")]
-        //public async Task<ActionResult<User>> AddUser(UserViewModel input)
-        //{
-        //    var user = input.Adapt<User>();
-        //    string userPassword = "";
+        [HttpPost("add-user")]
+        public async Task<ActionResult<User>> AddUser(UserViewModel input)
+        {
+            var user = input.Adapt<User>();
+            string userPassword = user.Password;
 
-        //    if (string.IsNullOrEmpty(user.Password))
-        //    {
-        //        //GENERATES PASSWORD
-        //        userPassword = _accountsServices.CreatePassword(8);
-        //    }
+            if (string.IsNullOrEmpty(user.Password))
+            {
+                //GENERATES PASSWORD
+                userPassword = _accountsServices.CreatePassword(8);
+            }
 
-        //    //ENCRYPTS PASSWORD
-        //    user.Password = Helpers.StringCipher.Encrypt(userPassword);
-        //    user.IsFirstTimeLogin = true;
-        //    _context.Users.Add(user);
-        //    await _context.SaveChangesAsync();
+            //ENCRYPTS PASSWORD
+            user.Password = Helpers.StringCipher.Encrypt(userPassword);
+            user.IsFirstTimeLogin = true;
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
-        //    try
-        //    {
-        //        //SEND WELCOME EMAIL WITH PASSWORD
-        //        string to = user.Email, userID, password, SMTPPort, host;
+            try
+            {
+                //SEND WELCOME EMAIL WITH PASSWORD
+                string to = user.Email, userID, password, SMTPPort, host;
 
-        //        _emailServices.AppSettings(out userID, out password, out SMTPPort, out host);
+                _emailServices.AppSettings(out userID, out password, out SMTPPort, out host);
 
-        //        var url = this._configuration["webSiteUrl"];
-        //        string subject = "Thaniyas Farmer App Account Created";
-        //        string body = @"Welcome to Thaniyas Farmer App!<br /><br />
+                var url = this._configuration["webSiteUrl"];
+                string subject = "Thaniyas Farmer App Account Created";
+                string body = @"Welcome to Thaniyas Farmer App!<br /><br />
 
-        //                                You have been added to the Thaniyas Farmer App system found here: " + url + @"<br /><br />
+                                        You have been added to the Thaniyas Farmer App system found here: " + url + @"<br /><br />
 
-        //                                Please login with the below username and temporary password.<br /><br />
+                                        Please login with the below username and temporary password.<br /><br />
 
-        //                                Username: " + user.UserName + @"<br />
-        //                                Password: " + userPassword + @"<br />";
+                                        Username: " + user.UserName + @"<br />
+                                        Password: " + userPassword + @"<br />";
 
 
-        //        _emailServices.SendEmail(subject, body, to, userID, password, SMTPPort, host);
-        //    }
-        //    catch(Exception ex)
-        //    {
+                _emailServices.SendEmail(subject, body, to, userID, password, SMTPPort, host);
+            }
+            catch (Exception ex)
+            {
 
-        //    }
+            }
 
-        //    return CreatedAtAction("GetUser", new { id = user.ID }, user);
-        //}
+            return CreatedAtAction("GetUser", new { id = user.ID }, user);
+        }
 
         //[HttpDelete("delete-user/{id}")]
         //public async Task<ActionResult<User>> DeleteUser(int id)

@@ -8,13 +8,18 @@ using System.Threading.Tasks;
 namespace ThaniyasFarmerAppAPI.Models
 {
     public class LandDetail : Base
-    {       
+    {
+        public User User { get; set; }
+        [ForeignKey("UserIDFK")]
+        public int UserId { get; set; }
+        
         [Required]
         [MaxLength(75)]
         public string Name { get; set; }
 
-        [ForeignKey("StateListId")]
         public StateList State { get; set; }
+        [ForeignKey("StateIDFK")]
+        public int StateId { get; set; }
 
         [Required]
         [MaxLength(100)]

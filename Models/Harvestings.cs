@@ -9,18 +9,17 @@ namespace ThaniyasFarmerAppAPI.Models
 {
     public class Harvestings:Base
     {
-
-        [ForeignKey("LandDetailIDFK")]
-        public LandDetail LandDetailsId { get; set; }
-
+        public User User { get; set; }
+        [ForeignKey("UserIDFK")]
+        public int UserId { get; set; }
+        public PartitionLandDetail PartitionLandDetail { get; set; }
         [ForeignKey("PartitionLandDetailIDFK")]
-        public PartitionLandDetail PartitionLandDetailId { get; set; }     
-        public string Date { get; set; }
-
+        public int PartitionLandDetailId { get; set; }
+        public DateTime Date { get; set; }
         [MaxLength(50)]
         public string Cost { get; set; }
         [MaxLength(50)]
-        public string NOofLabours { get; set; }
+        public string NoOfLabours { get; set; }
         public int LabourCost { get; set; }         
         public Harvestings()
         {
