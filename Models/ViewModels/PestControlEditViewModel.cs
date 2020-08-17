@@ -21,6 +21,8 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
         public string Purpose { get; set; }
       
         public string LabourCost { get; set; }
+        public string Notes { get; set; }
+      
         public int UserId { get; set; }
     }
 }

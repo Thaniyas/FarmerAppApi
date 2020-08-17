@@ -35,6 +35,12 @@ namespace ThaniyasFarmerAppAPI.Controllers
             
             try
             {
+                if (isExists(input.LandDirection, input.UserId)&& input.ID == 0)
+                {
+                    return new JsonResult(new { status = true, ErrorMessage = "Already Exist" });
+                }
+
+
                 PartitionLandDetail partitionLandDetail = null;
                 if (input != null)
                 {
@@ -44,8 +50,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                     if (landDetail == null) return new JsonResult(new { ErrorMessage = "The given land details id not found." });
                     var user = _context.Users.Where(s => s.ID == input.UserId).FirstOrDefault();
                     if (user == null) return new JsonResult(new { ErrorMessage = "The given user id not found." });
-                    landDetail.User = user;
-
+                    landDetail.User = user;                   
                     //Setting the land detail value to the Partition Land detail object
                     partitionLandDetail.LandDetail = landDetail;
 
@@ -72,7 +77,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
         [HttpGet("PartitionLand-list")]
         public async Task<ActionResult<List<PartitionLandDetail>>> GetPartLandActivity(int userId)
         {
-            var partLandList = await _context.PartitionLandDetails.Where(d => d.Deleted == false && d.UserId == userId)
+            var partLandList = await _context.PartitionLandDetails.Where(d => d.Deleted == false && d.LandDetail.Deleted == false && d.UserId == userId)
                     .Include(p => p.LandDetail).ToListAsync();
             return partLandList.Where(x => x.UserId == userId).ToList();
 
@@ -90,6 +95,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                 partitionLandEditViewModel.ID = PartLand.ID;
                 partitionLandEditViewModel.AreaSize = PartLand.AreaSize;
                 partitionLandEditViewModel.LandDirection = PartLand.LandDirection;
+                partitionLandEditViewModel.Notes = PartLand.Notes;
                 partitionLandEditViewModel.LandDetailName = landDetails;
                 partitionLandEditViewModel.selectedLandDetailId = PartLand.LandDetail.ID;
                 //return NotFound();
@@ -116,6 +122,16 @@ namespace ThaniyasFarmerAppAPI.Controllers
             return PartLand;
         }
 
+
+        private bool isExists(string landDirection, int userId)
+        {
+            var result = _context.PartitionLandDetails.Where(a => a.LandDirection.Equals(landDirection) && a.UserId==userId);
+            if(result.Any())
+            {
+                return true;
+            }
+            return false;
+        }
 
     }
 }

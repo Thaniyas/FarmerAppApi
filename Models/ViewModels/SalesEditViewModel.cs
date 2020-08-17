@@ -21,5 +21,7 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
         public string BuyerName { get; set; }
       
         public string BuyerMobileNumber { get; set; }
+        public string Notes { get; set; }
+       
     }
 }

@@ -14,15 +14,6 @@
           "lib/netstandard2.0/Mapster.dll": {}
         }
       },
-      "Microsoft.AspNet.Cors/5.2.7": {
-        "type": "package",
-        "compile": {
-          "lib/net45/System.Web.Cors.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Web.Cors.dll": {}
-        }
-      },
       "Microsoft.AspNet.WebApi.Client/5.2.7": {
         "type": "package",
         "dependencies": {
@@ -46,19 +37,6 @@
         },
         "runtime": {
           "lib/net45/System.Web.Http.dll": {}
-        }
-      },
-      "Microsoft.AspNet.WebApi.Cors/5.2.7": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Cors": "5.2.7",
-          "Microsoft.AspNet.WebApi.Core": "[5.2.7, 5.3.0)"
-        },
-        "compile": {
-          "lib/net45/System.Web.Http.Cors.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Web.Http.Cors.dll": {}
         }
       },
       "Microsoft.AspNetCore/2.2.0": {
@@ -634,21 +612,21 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.HostFiltering.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Hosting/2.2.0": {
+      "Microsoft.AspNetCore.Hosting/2.2.7": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Http": "2.2.0",
           "Microsoft.AspNetCore.Http.Extensions": "2.2.0",
           "Microsoft.Extensions.Configuration": "2.2.0",
-          "Microsoft.Extensions.Configuration.EnvironmentVariables": "2.2.0",
+          "Microsoft.Extensions.Configuration.EnvironmentVariables": "2.2.4",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.2.0",
           "Microsoft.Extensions.DependencyInjection": "2.2.0",
           "Microsoft.Extensions.FileProviders.Physical": "2.2.0",
           "Microsoft.Extensions.Hosting.Abstractions": "2.2.0",
           "Microsoft.Extensions.Logging": "2.2.0",
           "Microsoft.Extensions.Options": "2.2.0",
-          "System.Diagnostics.DiagnosticSource": "4.5.0",
+          "System.Diagnostics.DiagnosticSource": "4.5.1",
           "System.Reflection.Metadata": "1.6.0"
         },
         "compile": {
@@ -1936,7 +1914,7 @@
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.CommandLine.dll": {}
         }
       },
-      "Microsoft.Extensions.Configuration.EnvironmentVariables/2.2.0": {
+      "Microsoft.Extensions.Configuration.EnvironmentVariables/2.2.4": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Configuration": "2.2.0"
@@ -2890,6 +2868,15 @@
           }
         }
       },
+      "Microsoft.WindowsAzure.ConfigurationManager/3.2.3": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Microsoft.WindowsAzure.Configuration.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Microsoft.WindowsAzure.Configuration.dll": {}
+        }
+      },
       "NETStandard.Library/2.0.3": {
         "type": "package",
         "dependencies": {
@@ -3505,7 +3492,7 @@
           "ref/netstandard1.3/System.Diagnostics.Debug.dll": {}
         }
       },
-      "System.Diagnostics.DiagnosticSource/4.5.0": {
+      "System.Diagnostics.DiagnosticSource/4.5.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.3/System.Diagnostics.DiagnosticSource.dll": {}
@@ -4842,18 +4829,6 @@
         "mapster.nuspec"
       ]
     },
-    "Microsoft.AspNet.Cors/5.2.7": {
-      "sha512": "r7qTj8SKzHT32F2mbB3qgE+6VUd2xILkGaq4LtMW+KP3dDAQmI//j+8Ku01I3D1GKZvB9PU8HTJPkaw7sxSLtQ==",
-      "type": "package",
-      "path": "microsoft.aspnet.cors/5.2.7",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net45/System.Web.Cors.dll",
-        "microsoft.aspnet.cors.5.2.7.nupkg.sha512",
-        "microsoft.aspnet.cors.nuspec"
-      ]
-    },
     "Microsoft.AspNet.WebApi.Client/5.2.7": {
       "sha512": "/76fAHknzvFqbznS6Uj2sOyE9rJB3PltY+f53TH8dX9RiGhk02EhuFCWljSj5nnqKaTsmma8DFR50OGyQ4yJ1g==",
       "type": "package",
@@ -4883,19 +4858,6 @@
         "lib/net45/System.Web.Http.xml",
         "microsoft.aspnet.webapi.core.5.2.7.nupkg.sha512",
         "microsoft.aspnet.webapi.core.nuspec"
-      ]
-    },
-    "Microsoft.AspNet.WebApi.Cors/5.2.7": {
-      "sha512": "LUY5ufoiYLHKZXdrrNe7GlAwmu9WlyrX5iUtBSLwFZ31/tvPobyU7j1E31OWVdGZMBvRCxKbfyB7unxgrjTRpA==",
-      "type": "package",
-      "path": "microsoft.aspnet.webapi.cors/5.2.7",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net45/System.Web.Http.Cors.dll",
-        "lib/net45/System.Web.Http.Cors.xml",
-        "microsoft.aspnet.webapi.cors.5.2.7.nupkg.sha512",
-        "microsoft.aspnet.webapi.cors.nuspec"
       ]
     },
     "Microsoft.AspNetCore/2.2.0": {
@@ -5291,16 +5253,16 @@
         "microsoft.aspnetcore.hostfiltering.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Hosting/2.2.0": {
-      "sha512": "7t4RbUGugpHtQmzAkc9fpDdYJg6t/jcB2VVnjensVYbZFnLDU8pNrG0hrekk1DQG7P2UzpSqKLzDsFF0/lkkbw==",
+    "Microsoft.AspNetCore.Hosting/2.2.7": {
+      "sha512": "O0ZBE53Fa9bVGXykDzvgMFW0Pe1QyPPFg1pazN8l3RUFSWBsDJ9/iD1LHXgADA8+ZD3R/1zkvraPa9SZdievxQ==",
       "type": "package",
-      "path": "microsoft.aspnetcore.hosting/2.2.0",
+      "path": "microsoft.aspnetcore.hosting/2.2.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.AspNetCore.Hosting.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Hosting.xml",
-        "microsoft.aspnetcore.hosting.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.hosting.2.2.7.nupkg.sha512",
         "microsoft.aspnetcore.hosting.nuspec"
       ]
     },
@@ -6566,16 +6528,16 @@
         "microsoft.extensions.configuration.commandline.nuspec"
       ]
     },
-    "Microsoft.Extensions.Configuration.EnvironmentVariables/2.2.0": {
-      "sha512": "gIqt9PkKO01hZ0zmHnWrZ1E45MDreZTVoyDbL1kMWKtDgxxWTJpYtESTEcgpvR1uB1iex1zKGYzJpOMgmuP5TQ==",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables/2.2.4": {
+      "sha512": "Os7uRhp9xwawY5w2tgXw/86YrmAJZl6aHiQVdS9boWybTWPkJOvXXrQ3AGwuldN1W/r+cfnwRe2ePGeFO4zlzg==",
       "type": "package",
-      "path": "microsoft.extensions.configuration.environmentvariables/2.2.0",
+      "path": "microsoft.extensions.configuration.environmentvariables/2.2.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.EnvironmentVariables.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.EnvironmentVariables.xml",
-        "microsoft.extensions.configuration.environmentvariables.2.2.0.nupkg.sha512",
+        "microsoft.extensions.configuration.environmentvariables.2.2.4.nupkg.sha512",
         "microsoft.extensions.configuration.environmentvariables.nuspec"
       ]
     },
@@ -8077,6 +8039,19 @@
         "version.txt"
       ]
     },
+    "Microsoft.WindowsAzure.ConfigurationManager/3.2.3": {
+      "sha512": "pAFC2gHAuubgaw7hqSDuaEVMqip/Z0niCFVpUZ1Hg+HUw4BuMQDZnNXCm+S9SU2zPwaH8l8hXaxDXSQI438gMA==",
+      "type": "package",
+      "path": "microsoft.windowsazure.configurationmanager/3.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/Microsoft.WindowsAzure.Configuration.dll",
+        "lib/net40/Microsoft.WindowsAzure.Configuration.xml",
+        "microsoft.windowsazure.configurationmanager.3.2.3.nupkg.sha512",
+        "microsoft.windowsazure.configurationmanager.nuspec"
+      ]
+    },
     "NETStandard.Library/2.0.3": {
       "sha512": "st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "type": "package",
@@ -9333,10 +9308,10 @@
         "system.diagnostics.debug.nuspec"
       ]
     },
-    "System.Diagnostics.DiagnosticSource/4.5.0": {
-      "sha512": "eIHRELiYDQvsMToML81QFkXEEYXUSUT2F28t1SGrevWqP+epFdw80SyAXIKTXOHrIEXReFOEnEr7XlGiC2GgOg==",
+    "System.Diagnostics.DiagnosticSource/4.5.1": {
+      "sha512": "zCno/m44ymWhgLFh7tELDG9587q0l/EynPM0m4KgLaWQbz/TEKvNRX2YT5ip2qXW/uayifQ2ZqbnErsKJ4lYrQ==",
       "type": "package",
-      "path": "system.diagnostics.diagnosticsource/4.5.0",
+      "path": "system.diagnostics.diagnosticsource/4.5.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -9352,7 +9327,7 @@
         "lib/netstandard1.3/System.Diagnostics.DiagnosticSource.xml",
         "lib/portable-net45+win8+wpa81/System.Diagnostics.DiagnosticSource.dll",
         "lib/portable-net45+win8+wpa81/System.Diagnostics.DiagnosticSource.xml",
-        "system.diagnostics.diagnosticsource.4.5.0.nupkg.sha512",
+        "system.diagnostics.diagnosticsource.4.5.1.nupkg.sha512",
         "system.diagnostics.diagnosticsource.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -13153,13 +13128,16 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
       "Mapster >= 4.1.0",
-      "Microsoft.AspNet.WebApi.Cors >= 5.2.7",
+      "Microsoft.AspNet.WebApi.Core >= 5.2.7",
+      "Microsoft.AspNetCore >= 2.2.0",
       "Microsoft.AspNetCore.App >= 2.2.0",
+      "Microsoft.AspNetCore.Hosting >= 2.2.7",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.2.4",
       "Microsoft.EntityFrameworkCore.Tools >= 2.2.4",
       "Microsoft.NETCore.App >= 2.2.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.2.0",
+      "Microsoft.WindowsAzure.ConfigurationManager >= 3.2.3",
       "Swashbuckle.AspNetCore >= 4.0.1"
     ]
   },
@@ -13208,15 +13186,23 @@
             "target": "Package",
             "version": "[4.1.0, )"
           },
-          "Microsoft.AspNet.WebApi.Cors": {
+          "Microsoft.AspNet.WebApi.Core": {
             "target": "Package",
             "version": "[5.2.7, )"
+          },
+          "Microsoft.AspNetCore": {
+            "target": "Package",
+            "version": "[2.2.0, )"
           },
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.2.0, )",
             "autoReferenced": true
+          },
+          "Microsoft.AspNetCore.Hosting": {
+            "target": "Package",
+            "version": "[2.2.7, )"
           },
           "Microsoft.AspNetCore.Razor.Design": {
             "suppressParent": "All",
@@ -13243,6 +13229,10 @@
             "target": "Package",
             "version": "[2.2.0, )"
           },
+          "Microsoft.WindowsAzure.ConfigurationManager": {
+            "target": "Package",
+            "version": "[3.2.3, )"
+          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[4.0.1, )"
@@ -13258,21 +13248,11 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'Microsoft.AspNet.Cors 5.2.7' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.",
-      "libraryId": "Microsoft.AspNet.Cors",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v2.2"
-      ]
-    },
     {
       "code": "NU1701",
       "level": "Warning",
@@ -13287,8 +13267,8 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Microsoft.AspNet.WebApi.Cors 5.2.7' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.",
-      "libraryId": "Microsoft.AspNet.WebApi.Cors",
+      "message": "Package 'Microsoft.WindowsAzure.ConfigurationManager 3.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.WindowsAzure.ConfigurationManager",
       "targetGraphs": [
         ".NETCoreApp,Version=v2.2"
       ]

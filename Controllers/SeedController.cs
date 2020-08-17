@@ -38,6 +38,11 @@ namespace ThaniyasFarmerAppAPI.Controllers
 
             try
             {
+                //if (isExists(input.SeedName) && input.ID == 0)
+                //{
+                //    return new JsonResult(new { status = true, ErrorMessage = "Already Exist" });
+                //}
+
                Seeding seeding = null;
                 if (input != null)
                 {
@@ -72,7 +77,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
         [HttpGet("seed-list")]
         public async Task<ActionResult<IEnumerable<Seeding>>> GetSeedActivity(int userId)
         {
-            var list= await _context.Seedings.Where(d => d.Deleted == false && d.UserId == userId)
+            var list= await _context.Seedings.Where(d => d.Deleted == false && d.PartitionLandDetail.LandDetail.Deleted == false && d.UserId == userId)
                     .Include(p => p.PartitionLandDetail).ToListAsync();
             return list.Where(x => x.UserId == userId).ToList();
         }
@@ -92,6 +97,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                 seedEditViewModel.NoOfLabours = Seed.NoOfLabours;
                 seedEditViewModel.Quantity = Seed.Quantity;
                 seedEditViewModel.SeedCost = Seed.SeedCost;
+                seedEditViewModel.Notes = Seed.Notes;
                 seedEditViewModel.SeedName = Seed.SeedName;
                 seedEditViewModel.LandDetailName = landDetails;
                 seedEditViewModel.PartLandDetailName = partLandDetails;
@@ -116,6 +122,16 @@ namespace ThaniyasFarmerAppAPI.Controllers
             await _context.SaveChangesAsync();
 
             return seed;
+        }
+
+        private bool isExists(string seedName)
+        {
+            var result = _context.Seedings.Where(a => a.SeedName.Equals(seedName));
+            if (result.Any())
+            {
+                return true;
+            }
+            return false;
         }
 
     }

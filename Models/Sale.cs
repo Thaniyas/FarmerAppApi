@@ -24,7 +24,9 @@ namespace ThaniyasFarmerAppAPI.Models
         [MaxLength(50)]
         public string BuyerName { get; set; }
         [MaxLength(50)]
-        public string BuyerMobileNumber { get; set; }      
+        public string BuyerMobileNumber { get; set; }
+        [MaxLength(50)]
+        public string Notes { get; set; }     
         public new bool Deleted { get; set; }
 
         public Sale()

@@ -25,6 +25,8 @@ namespace ThaniyasFarmerAppAPI.Models
         [MaxLength(50)]
         public string NoOfLabours { get; set; }
         public int LabourCost { get; set; }
+        [MaxLength(50)]
+        public string Notes { get; set; }       
         public new bool Deleted { get; set; }
 
         public Seeding()

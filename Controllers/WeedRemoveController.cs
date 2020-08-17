@@ -38,6 +38,11 @@ namespace ThaniyasFarmerAppAPI.Controllers
             //return new JsonResult(weedRemove); 
             try
             {
+                //if (isExists(input.LabourCost) && input.ID == 0)
+                //{
+                //    return new JsonResult(new { status = true, ErrorMessage = "Already Exist" });
+                //}
+
                 WeedRemove weedRemove = null;
                 if (input != null)
                 {
@@ -74,8 +79,9 @@ namespace ThaniyasFarmerAppAPI.Controllers
         [HttpGet("WeedRemove-list")]
         public async Task<ActionResult<IEnumerable<WeedRemove>>> GetWeedRemoveActivity(int userId)
         {          
-                var list= await _context.WeedRemove.Where(d => d.Deleted == false && d.UserId == userId)
-                    .Include(p => p.PartitionLandDetail).ToListAsync();
+                var list= await _context.WeedRemove.Where(d => d.Deleted == false && d.PartitionLandDetail.LandDetail.Deleted == false && d.UserId == userId)
+                    .Include(p => p.PartitionLandDetail).Include(p => p.PartitionLandDetail.LandDetail).ToListAsync();
+
             return list.Where(x => x.UserId == userId).ToList();
         }
 
@@ -93,6 +99,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                 weedRemoveEditViewModel.ID = WeedRemove.ID;
                 weedRemoveEditViewModel.LabourCost = WeedRemove.LabourCost;
                 weedRemoveEditViewModel.NoOfLabours = WeedRemove.NoOfLabours;
+                weedRemoveEditViewModel.Notes = WeedRemove.Notes;
                 //weedRemoveEditViewModel.Date = WeedRemove.Date;
                 weedRemoveEditViewModel.Cost = WeedRemove.Cost;
                 weedRemoveEditViewModel.LandDetailName = landDetails;
@@ -121,5 +128,17 @@ namespace ThaniyasFarmerAppAPI.Controllers
             return weedremove;
         }
 
+        private bool isExists(int labourCost)
+        {
+            var result = _context.WeedRemove.Where(a => a.LabourCost.Equals(labourCost));
+            if (result.Any())
+            {
+                return true;
+            }
+            return false;
+        }
+
+
     }
 }
+

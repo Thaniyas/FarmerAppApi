@@ -69,7 +69,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
         [HttpGet("sale-list")]
         public async Task<ActionResult<IEnumerable<Sale>>> GetSaleActivity(int userId)
         {
-            var list= await _context.Sales.Where(d => d.Deleted == false && d.UserId == userId)
+            var list= await _context.Sales.Where(d => d.Deleted == false && d.PartitionLandDetail.LandDetail.Deleted == false &&  d.UserId == userId)
                     .Include(p => p.PartitionLandDetail).ToListAsync();
             return list.Where(x => x.UserId == userId).ToList();
         }
@@ -91,6 +91,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                 salesEditViewModel.ID = sale.ID;
                 salesEditViewModel.Price = sale.Price;
                 salesEditViewModel.Quantity = sale.Quantity;
+                salesEditViewModel.Notes = sale.Notes;
                 salesEditViewModel.LandDetailName = landDetails;
                 salesEditViewModel.PartLandDetailName = partLandDetails;
             }
@@ -114,6 +115,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
 
             return sale;
         }
+
 
     }
 }

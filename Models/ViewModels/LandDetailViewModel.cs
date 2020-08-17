@@ -23,7 +23,10 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
         public string City { get; set; }
         [MaxLength(50)]
         public string PattaNumber { get; set; }
+        public string SurveyNumber { get; set; }
         public int AreaSize { get; set; }
+        [MaxLength(50)]
+        public string Notes { get; set; }        
         public bool Deleted { get; set; }
         public int UserId { get; set; }
     }

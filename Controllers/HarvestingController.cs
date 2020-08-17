@@ -34,6 +34,12 @@ namespace ThaniyasFarmerAppAPI.Controllers
 
             try
             {
+                //if (isExists(input.LabourCost)&&input.ID == 0)
+                //{
+                //    return new JsonResult(new { status = true, ErrorMessage = "Already Exist" });
+                //}
+
+
                 Harvestings harvest = null;
                 if (input != null)
                 {
@@ -72,8 +78,8 @@ namespace ThaniyasFarmerAppAPI.Controllers
         [HttpGet("harvesting-list")]
         public async Task<ActionResult<IEnumerable<Harvestings>>> GetHarvestActivity(int userId)
         {
-            var list= await _context.Harvestings.Where(d => d.Deleted == false && d.UserId == userId)
-                    .Include(p => p.PartitionLandDetail).ToListAsync();
+            var list= await _context.Harvestings.Where(d => d.Deleted == false && d.PartitionLandDetail.LandDetail.Deleted == false &&  d.UserId == userId)
+                    .Include(p => p.PartitionLandDetail).Include(p => p.PartitionLandDetail.LandDetail).ToListAsync();
             return list.Where(x => x.UserId == userId).ToList();
         }
 
@@ -93,6 +99,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                 harvestingEditViewModel.NoOfLabours = Harvest.NoOfLabours;
                 harvestingEditViewModel.Cost = Harvest.Cost;
                 harvestingEditViewModel.Date = Harvest.Date;
+                harvestingEditViewModel.Notes = Harvest.Notes;
             }
             return harvestingEditViewModel;
         }
@@ -113,6 +120,16 @@ namespace ThaniyasFarmerAppAPI.Controllers
             await _context.SaveChangesAsync();
 
             return harvest;
+        }
+
+        private bool isExists(int labourCost)
+        {
+            var result = _context.Harvestings.Where(a => a.LabourCost.Equals(labourCost));
+            if (result.Any())
+            {
+                return true;
+            }
+            return false;
         }
 
     }

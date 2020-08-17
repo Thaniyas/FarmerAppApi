@@ -22,6 +22,7 @@ namespace ThaniyasFarmerAppAPI.Models
         [MaxLength(50)]
         public string PlowingExp { get; set; }
         [MaxLength(50)]
+        public string Notes { get; set; }      
         public new bool Deleted { get; set; }
 
         public Plowing()

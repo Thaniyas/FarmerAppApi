@@ -19,6 +19,7 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
         public string Purpose { get; set; }
         [MaxLength(50)]
         public string LabourCost { get; set; }
+        public string Notes { get; set; }       
         public bool Deleted { get; set; }
         public int UserId { get; set; }
     }

@@ -29,7 +29,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
         [HttpGet("pestControl-list")]
         public async Task<ActionResult<IEnumerable<PestControl>>> GetPestControlActivity(int userId)
         {
-            var list= await _context.PestControls.Where(d => d.Deleted == false && d.UserId == userId)
+            var list= await _context.PestControls.Where(d => d.Deleted == false && d.PartitionLandDetail.LandDetail.Deleted == false && d.UserId == userId)
                     .Include(p => p.PartitionLandDetail).ToListAsync();
             return list.Where(x => x.UserId == userId).ToList();
         }
@@ -45,6 +45,11 @@ namespace ThaniyasFarmerAppAPI.Controllers
 
             try
             {
+                //if(isExists(input.NameofthePestSide)&& input.ID == 0)
+                //{
+                //    return new JsonResult(new { status = true, ErrorMessage = "Already Exist" });
+                //}
+
                 PestControl pestControl = null;
                 if (input != null)
                 {
@@ -91,6 +96,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                 pestControlEditViewModel.LabourCost = pestControl.LabourCost;
                 pestControlEditViewModel.NameofthePestSide = pestControl.NameofthePestSide;
                 pestControlEditViewModel.Purpose = pestControl.Purpose;
+                pestControlEditViewModel.Notes = pestControl.Notes;
                 //pestControlEditViewModel.PestControlDate = pestControl.PestControlDate;
                 pestControlEditViewModel.Cost = pestControl.Cost;
                 pestControlEditViewModel.LandDetailName = landDetails;
@@ -117,6 +123,14 @@ namespace ThaniyasFarmerAppAPI.Controllers
             return pestControl;
         }
 
-
+        private bool isExists(string nameofPestSide)
+        {
+            var result = _context.PestControls.Where(a => a.NameofthePestSide.Equals(nameofPestSide));
+            if (result.Any())
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
