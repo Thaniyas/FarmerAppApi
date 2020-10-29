@@ -15,7 +15,7 @@ namespace ThaniyasFarmerAppAPI.Models
         
         [Required]
         [MaxLength(75)]
-        public string AreaSize { get; set; }
+        public float AreaSize { get; set; }
 
         public LandDetail LandDetail { get; set; }
         [ForeignKey("LandDetailIDFK")]

@@ -21,13 +21,15 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
 
         [MaxLength(50)]
         public string City { get; set; }
-        [MaxLength(50)]
-        public string PattaNumber { get; set; }
-        public string SurveyNumber { get; set; }
-        public int AreaSize { get; set; }
+      
+        public int PattaNumber { get; set; }
+        public int SurveyNumber { get; set; }
+        public float AreaSize { get; set; }
         [MaxLength(50)]
         public string Notes { get; set; }        
         public bool Deleted { get; set; }
         public int UserId { get; set; }
+
+        public virtual ICollection<Plowing> PlowingDetails { get; set; }
     }
 }

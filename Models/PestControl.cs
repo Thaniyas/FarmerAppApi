@@ -18,12 +18,12 @@ namespace ThaniyasFarmerAppAPI.Models
         public DateTime PestControlDate { get; set; }
         [MaxLength(50)]
         public string NameofthePestSide { get; set; }
-        [MaxLength(50)]
-        public string Cost { get; set; }
-        [MaxLength(50)]
+     
+        public float Cost { get; set; }
+        
         public string Purpose { get; set; }
-        [MaxLength(50)]
-        public string LabourCost { get; set; }
+    
+        public float LabourCost { get; set; }
         [MaxLength(50)]
         public string Notes { get; set; }
       

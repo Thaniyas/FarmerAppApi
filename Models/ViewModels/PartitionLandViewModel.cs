@@ -14,7 +14,7 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
         [Required]
         public int LandDetailId { get; set; }
         public int ID { get; set; }
-        public string AreaSize { get; set; }
+        public float AreaSize { get; set; }
         [MaxLength(50)]
         public string Notes { get; set; }       
         public bool Deleted { get; set; }

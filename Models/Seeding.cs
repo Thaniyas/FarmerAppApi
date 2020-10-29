@@ -15,16 +15,16 @@ namespace ThaniyasFarmerAppAPI.Models
         public PartitionLandDetail PartitionLandDetail { get; set; }
         [ForeignKey("PartitionLandDetailIDFK")]
         public int PartitionLandDetailId { get; set; }
-        [MaxLength(50)]
-        public string Quantity { get; set; }
+        
+        public int Quantity { get; set; }
         [MaxLength(50)]
         public string SeedName { get; set; }
-        [MaxLength(50)]
+        
         public DateTime Date { get; set; }
-        public string SeedCost { get; set; }
-        [MaxLength(50)]
-        public string NoOfLabours { get; set; }
-        public int LabourCost { get; set; }
+        public float SeedCost { get; set; }
+       
+        public int NoOfLabours { get; set; }
+        public float LabourCost { get; set; }
         [MaxLength(50)]
         public string Notes { get; set; }       
         public new bool Deleted { get; set; }

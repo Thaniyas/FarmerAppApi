@@ -12,10 +12,10 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
         public int UserId { get; set; }
         public int ID { get; set; }
         public DateTime SaleDate { get; set; }
-        [MaxLength(50)]
-        public string Quantity { get; set; }
-        [MaxLength(50)]
-        public string Price { get; set; }
+       
+        public int Quantity { get; set; }
+        
+        public float Price { get; set; }
         [MaxLength(50)]
         public string BuyerName { get; set; }
         [MaxLength(50)]

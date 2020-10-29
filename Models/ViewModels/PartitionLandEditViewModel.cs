@@ -13,7 +13,7 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
         public int selectedLandDetailId { get; set; }
         public List<LandDetail> LandDetailName { get; set; }
         public int ID { get; set; }
-        public string AreaSize { get; set; }
+        public float AreaSize { get; set; }
         public string Notes { get; set; }        
         public bool Deleted { get; set; }
         public int UserId { get; set; }

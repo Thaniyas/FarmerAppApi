@@ -19,8 +19,8 @@ namespace ThaniyasFarmerAppAPI.Models
         public DateTime PlowingDate { get; set; }
         [MaxLength(50)]
         public string TypeofPlowing { get; set; }
-        [MaxLength(50)]
-        public string PlowingExp { get; set; }
+      
+        public float PlowingExp { get; set; }
         [MaxLength(50)]
         public string Notes { get; set; }      
         public new bool Deleted { get; set; }

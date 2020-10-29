@@ -12,11 +12,11 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
         public int selectedPartLandDetailId { get; set; }
         public List<PartitionLandDetail> PartLandDetailName { get; set; }
         public int ID { get; set; }      
-        public string Quantity { get; set; }       
+        public int Quantity { get; set; }       
         public string SeedName { get; set; }       
-        public string SeedCost { get; set; }      
-        public string NoOfLabours { get; set; }
-        public int LabourCost { get; set; }
+        public float SeedCost { get; set; }      
+        public int NoOfLabours { get; set; }
+        public float LabourCost { get; set; }
         public string Notes { get; set; }
        
     }

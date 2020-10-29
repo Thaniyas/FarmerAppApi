@@ -19,7 +19,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ActionFillter]
+    
     public class PartitionLandController : ControllerBase
     {
         private readonly BaseDbContext _context;

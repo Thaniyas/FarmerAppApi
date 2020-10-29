@@ -16,11 +16,11 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
        
         public string NameofthePestSide { get; set; }
        
-        public string Cost { get; set; }
+        public float Cost { get; set; }
       
         public string Purpose { get; set; }
       
-        public string LabourCost { get; set; }
+        public float LabourCost { get; set; }
         public string Notes { get; set; }
       
         public int UserId { get; set; }

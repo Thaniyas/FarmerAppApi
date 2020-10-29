@@ -16,7 +16,7 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
        
         public string TypeofPlowing { get; set; }
        
-        public string PlowingExp { get; set; }
+        public float PlowingExp { get; set; }
         public string Notes { get; set; }
       
 

@@ -14,9 +14,9 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
         public int ID { get; set; }
         public string SaleDate { get; set; }
        
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
       
-        public string Price { get; set; }
+        public float Price { get; set; }
       
         public string BuyerName { get; set; }
       
