@@ -9,8 +9,8 @@ namespace ThaniyasFarmerAppAPI.Models.ViewModels
     {
         public string LandName { get; set; }
         public string Partition { get; set; }
-        public int TotalExpenses { get; set; }
-        public int TotalIncome { get; set; }
+        public float TotalExpenses { get; set; }
+        public float TotalIncome { get; set; }
         public List<Plowing> plowings { get; set; }
         public List<Harvestings> harvestings { get; set; }
         public List<Seeding> seedings { get; set; }

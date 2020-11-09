@@ -107,9 +107,9 @@ namespace ThaniyasFarmerAppAPI.Controllers
             
             try
             {
-                if (isExists(input.Name, input.UserId) && input.ID==0)
+                if (isExists(input.Name, input.UserId, input.ID))
                 {
-                    return new JsonResult(new { status=true, ErrorMessage = "Already Exist" });
+                    return new JsonResult(new { status=true, ErrorMessage = "Given land name exist" });
 
                 }
 
@@ -168,14 +168,25 @@ namespace ThaniyasFarmerAppAPI.Controllers
             return _context.LandDetails.Any(e => e.ID == id);
         }
 
-        private bool isExists(string landName, int userId)
+        private bool isExists(string landName, int userId, int id)
         {
-            var result = _context.LandDetails.Where(a => a.Name.Equals(landName) && a.UserId ==userId);
-            if (result.Any())
+            LandDetail landDetail = null;
+            if (id == 0)
             {
+                landDetail = _context.LandDetails.Where(a => a.Name.Equals(landName) && a.UserId == userId).FirstOrDefault();
+            }
+            else
+            {
+                landDetail = _context.LandDetails.Where(a => a.Name.Equals(landName) && a.ID != id && a.UserId == userId).FirstOrDefault();
+            }
+           
+            if(landDetail != null)
+            {
+
                 return true;
             }
             return false;
+           
         }
 
 
