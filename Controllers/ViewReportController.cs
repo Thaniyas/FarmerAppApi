@@ -99,7 +99,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                         Income = 0,
                         LandName = landDetailViewModel.Name,
                         Partition = partition.LandDirection,
-                        Purpose = "Sale"
+                        Purpose = "Harvesting"
                     });
                 }
 
@@ -111,7 +111,7 @@ namespace ThaniyasFarmerAppAPI.Controllers
                         Income = 0,
                         LandName = landDetailViewModel.Name,
                         Partition = partition.LandDirection,
-                        Purpose = "Harvesting"
+                        Purpose = "Sale"
                     });
                 }
 
